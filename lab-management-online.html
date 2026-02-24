@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NDVSU Lab Management System - Cloud Edition</title>
+<title>NDVSU Lab Management System - Complete</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
 :root{--deep:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#1e2d45;--accent:#00d4ff;--accent2:#7c3aed;--accent3:#10b981;--accent4:#f59e0b;--accent5:#ef4444;--text:#e2e8f0;--muted:#64748b;--bio-color:#10b981;--hemo-color:#7c3aed;--admin-color:#00d4ff;--recep-color:#f59e0b}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -24,40 +23,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
 @keyframes pulse-glow{0%,100%{box-shadow:0 0 40px rgba(0,212,255,0.3)}50%{box-shadow:0 0 60px rgba(0,212,255,0.5)}}
 .logo-section h1{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:800;background:linear-gradient(135deg,var(--accent),#fff 60%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
 .logo-section p{color:var(--muted);font-family:'DM Mono',monospace;font-size:13px;margin-top:6px;letter-spacing:2px;text-transform:uppercase}
-.portal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;width:100%}
-.portal-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 24px;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;text-align:center}
-.portal-card::before{content:'';position:absolute;inset:0;background:var(--card-glow,transparent);opacity:0;transition:opacity 0.3s}
-.portal-card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--card-border-hover)}
-.portal-card:hover::before{opacity:1}
-.portal-card[data-role="admin"]{--card-border-hover:var(--admin-color);--card-glow:radial-gradient(circle at 50% 0%,rgba(0,212,255,0.12) 0%,transparent 70%)}
-.portal-card[data-role="receptionist"]{--card-border-hover:var(--recep-color);--card-glow:radial-gradient(circle at 50% 0%,rgba(245,158,11,0.12) 0%,transparent 70%)}
-.portal-card[data-role="biochemist"]{--card-border-hover:var(--bio-color);--card-glow:radial-gradient(circle at 50% 0%,rgba(16,185,129,0.12) 0%,transparent 70%)}
-.portal-card[data-role="hematologist"]{--card-border-hover:var(--hemo-color);--card-glow:radial-gradient(circle at 50% 0%,rgba(124,58,237,0.12) 0%,transparent 70%)}
-.portal-icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
-.portal-card[data-role="admin"] .portal-icon{background:rgba(0,212,255,0.15)}
-.portal-card[data-role="receptionist"] .portal-icon{background:rgba(245,158,11,0.15)}
-.portal-card[data-role="biochemist"] .portal-icon{background:rgba(16,185,129,0.15)}
-.portal-card[data-role="hematologist"] .portal-icon{background:rgba(124,58,237,0.15)}
-.portal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px}
-.portal-desc{color:var(--muted);font-size:13px;line-height:1.5}
-.portal-badge{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:5px 12px;border-radius:20px;font-size:11px;font-family:'DM Mono',monospace;font-weight:500;text-transform:uppercase;letter-spacing:1px}
-.portal-card[data-role="admin"] .portal-badge{background:rgba(0,212,255,0.1);color:var(--admin-color)}
-.portal-card[data-role="receptionist"] .portal-badge{background:rgba(245,158,11,0.1);color:var(--recep-color)}
-.portal-card[data-role="biochemist"] .portal-badge{background:rgba(16,185,129,0.1);color:var(--bio-color)}
-.portal-card[data-role="hematologist"] .portal-badge{background:rgba(124,58,237,0.1);color:var(--hemo-color)}
 .modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.3s}
 .modal-overlay.show{opacity:1;pointer-events:all}
-.modal-box{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:40px;width:100%;max-width:420px;transform:translateY(20px) scale(0.97);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:40px;width:100%;max-width:420px;transform:translateY(20px) scale(0.97);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;max-height:90vh;overflow-y:auto}
 .modal-overlay.show .modal-box{transform:translateY(0) scale(1)}
 .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;transition:color 0.2s}
 .modal-close:hover{color:var(--text)}
-.modal-role-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;font-size:12px;font-family:'DM Mono',monospace;font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
 .modal-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;margin-bottom:6px}
 .modal-subtitle{color:var(--muted);font-size:14px;margin-bottom:28px}
 .form-group{margin-bottom:18px}
 .form-label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px}
-.form-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
-.form-input:focus{border-color:var(--focus-color,var(--accent));box-shadow:0 0 0 3px var(--focus-shadow,rgba(0,212,255,0.1))}
+.form-input,.form-select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.form-input:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,0.1)}
 .btn-primary{width:100%;padding:14px;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2))}
 .btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .top-nav{background:rgba(17,24,39,0.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:50}
@@ -66,7 +43,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
 .nav-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px}
 .nav-role{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px}
 .nav-user{display:flex;align-items:center;gap:12px}
-.nav-time{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted)}
 .nav-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;font-family:'Syne',sans-serif}
 .logout-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:8px;font-size:13px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
 .logout-btn:hover{border-color:var(--accent5);color:var(--accent5)}
@@ -76,11 +52,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
 .sidebar-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:8px 12px;font-family:'DM Mono',monospace}
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px;color:var(--muted);transition:all 0.2s;margin-bottom:2px}
 .nav-item:hover{background:rgba(255,255,255,0.05);color:var(--text)}
-.nav-item.active{background:var(--nav-active-bg);color:var(--nav-active-color)}
+.nav-item.active{background:var(--accent);color:#000;font-weight:600}
 .nav-item .icon{font-size:18px;width:20px;text-align:center}
 .main-content{flex:1;overflow-y:auto;padding:28px}
-.content-section{display:none;visibility:hidden}
-.content-section.active{display:block;visibility:visible}
+.content-section{display:none}
+.content-section.active{display:block}
 .section-header{margin-bottom:28px}
 .section-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.5px}
 .section-subtitle{color:var(--muted);font-size:14px;margin-top:4px}
@@ -89,30 +65,33 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
 .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--stat-color,var(--accent))}
 .stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'DM Mono',monospace}
 .stat-value{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;margin:6px 0;color:var(--stat-color,var(--text))}
-.stat-change{font-size:12px;color:var(--accent3)}
-.stat-icon{position:absolute;top:16px;right:16px;font-size:28px;opacity:0.3}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px;display:block;visibility:visible}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px}
 .card-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:16px}
 .btn{border:none;border-radius:10px;padding:10px 16px;font-family:'Syne',sans-serif;font-weight:600;cursor:pointer;transition:all 0.2s;font-size:14px}
 .btn-accent{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
 .btn-accent:hover{filter:brightness(1.1)}
-.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;font-size:12px}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 .btn-sm{padding:6px 12px;font-size:12px}
 #toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 24px;display:flex;align-items:center;gap:12px;z-index:200;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
 #toast.show{transform:translateY(0);opacity:1;pointer-events:all}
 #toast-icon{font-size:20px}
 #toast-msg{color:var(--text);font-size:14px}
-.setup-warning{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:16px;margin-bottom:20px;color:var(--accent4)}
-.setup-warning strong{display:block;margin-bottom:8px}
-.sync-indicator{width:10px;height:10px;border-radius:50%;background:var(--accent3);animation:pulse 2s ease-in-out infinite;display:inline-block;margin-right:8px}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:12px;text-align:left;border-bottom:1px solid var(--border);color:var(--text)}
+th{background:var(--surface);font-weight:600;color:var(--accent);font-size:12px;text-transform:uppercase}
+tr:hover{background:rgba(0,212,255,0.05)}
+.badge{display:inline-block;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase}
+.badge-pending{background:rgba(245,158,11,0.2);color:var(--accent4)}
+.badge-completed{background:rgba(16,185,129,0.2);color:var(--accent3)}
+.badge-verified{background:rgba(0,212,255,0.2);color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="bg-grid"></div>
 <div class="bg-orb bg-orb-1"></div>
 <div class="bg-orb bg-orb-2"></div>
+
 <div id="login-screen" class="page active">
   <div class="login-container">
     <div class="logo-section">
@@ -122,9 +101,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
     </div>
     <div class="modal-overlay show">
       <div class="modal-box" id="loginModalBox">
-        <div class="modal-role-badge"><span id="loginRoleBadge"></span></div>
-        <h2 class="modal-title">Welcome Back</h2>
-        <p class="modal-subtitle">Enter your credentials to access the lab system</p>
+        <h2 class="modal-title">Welcome</h2>
+        <p class="modal-subtitle">Sign in to your clinic account</p>
         <div class="form-group">
           <label class="form-label">Email</label>
           <input type="email" id="loginEmail" class="form-input" placeholder="your@clinic.com" autocomplete="email">
@@ -152,16 +130,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
       </div>
     </div>
     <div class="nav-user">
-      <div class="nav-time" id="navTime"></div>
       <div class="nav-avatar" id="navAvatar"></div>
       <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
   </div>
   <div class="app-layout">
     <div class="sidebar" id="sidebar"></div>
-    <div class="main-content">
-      <div id="mainContent"></div>
-    </div>
+    <div class="main-content" id="mainContent"></div>
   </div>
 </div>
 
@@ -171,13 +146,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
 </div>
 
 <script type="module">
-  // Import Firebase functions
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, getDoc, setDoc, query, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
   import { getStorage } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
-  // Your Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDmwtidfH1WNT2HWuotX6EMS-yMX30mSa4",
     authDomain: "ndvsu-a39b3.firebaseapp.com",
@@ -188,13 +161,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
     measurementId: "G-NVN9DZ52PY"
   };
 
-  // Initialize Firebase
   const firebaseApp = initializeApp(firebaseConfig);
   const auth = getAuth(firebaseApp);
   const db = getFirestore(firebaseApp);
   const storage = getStorage(firebaseApp);
 
-  // Make them global so the main script can use them
   window.auth = auth;
   window.db = db;
   window.storage = storage;
@@ -209,30 +180,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep);color:var(--text);m
   window.doc = doc;
   window.getDoc = getDoc;
   window.setDoc = setDoc;
+  window.query = query;
+  window.where = where;
 
-  // Signal that Firebase is ready
   window.firebaseInitCallback?.();
 </script>
 
 <script>
-// ═════════════════════════════════════════════════════════════
-// FIREBASE INITIALIZATION (Will be set by module script below)
-// ═════════════════════════════════════════════════════════════
-let db, auth, storage, app;
-const firebaseReady = new Promise(resolve => {
-  window.firebaseInitCallback = resolve;
-});
-
-// ═════════════════════════════════════════════════════════════
-// MAIN APPLICATION STATE
-// ═════════════════════════════════════════════════════════════
-const App = {
-  role: null,
-  user: null,
-  email: null,
-  clinicId: null
-};
-
+const App = { role: null, user: null, email: null, clinicId: 'NDVSU-001' };
 const ROLES = {
   admin: { icon: '⚙️', name: 'Administrator', color: '#00d4ff' },
   receptionist: { icon: '👤', name: 'Receptionist', color: '#f59e0b' },
@@ -240,85 +195,66 @@ const ROLES = {
   hematologist: { icon: '🔬', name: 'Hematologist', color: '#7c3aed' }
 };
 
-let currentResultPatient = null;
-let refTab = 'bio';
-let refSpecies = 'Canine';
 let patients = [];
 let testResults = [];
 let criteria = [];
 
-// ═════════════════════════════════════════════════════════════
-// AUTHENTICATION
-// ═════════════════════════════════════════════════════════════
+// LOGIN
 function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPass').value;
-
-  if(!email || !password) {
-    showToast('⚠️', 'Enter email and password');
-    return;
-  }
-
-  if(!window.auth) {
-    showToast('❌', 'Firebase not initialized. Refresh page.');
-    return;
-  }
-
+  if(!email || !password) { showToast('⚠️', 'Enter email and password'); return; }
+  
   signInWithEmailAndPassword(window.auth, email, password)
     .then(userCred => {
       App.email = email;
       App.user = userCred.user.uid;
       loadUserRole();
     })
-    .catch(err => {
-      showToast('❌', 'Invalid credentials: ' + err.message);
-      console.error(err);
-    });
+    .catch(err => showToast('❌', 'Invalid credentials'));
 }
 
 function showSignup() {
-  const email = prompt('Enter email for new account:');
+  const email = prompt('Email:');
   if(!email) return;
-  const password = prompt('Enter password (min 6 chars):');
-  if(!password || password.length < 6) {
-    showToast('⚠️', 'Password must be at least 6 characters');
-    return;
-  }
-  const role = confirm('Are you an Admin? (Cancel for Receptionist)');
-
+  const password = prompt('Password (min 6):');
+  if(!password || password.length < 6) { showToast('⚠️', 'Min 6 chars'); return; }
+  const role = confirm('Admin? (OK=Admin, Cancel=Receptionist)') ? 'admin' : 'receptionist';
+  
   createUserWithEmailAndPassword(window.auth, email, password)
     .then(userCred => {
-      const roleType = role ? 'admin' : 'receptionist';
-      const userRef = doc(window.db, 'users', userCred.user.uid);
-      setDoc(userRef, {
-        email: email,
-        role: roleType,
-        clinicId: 'NDVSU-001',
-        createdAt: new Date()
-      });
-      showToast('✅', 'Account created! Please log in');
+      setDoc(window.doc(window.db, 'users', userCred.user.uid), { email, role, clinicId: 'NDVSU-001', createdAt: new Date() });
+      showToast('✅', 'Account created! Log in now');
     })
     .catch(err => showToast('❌', err.message));
 }
 
 function loadUserRole() {
-  const userRef = doc(window.db, 'users', App.user);
-  getDoc(userRef)
+  getDoc(window.doc(window.db, 'users', App.user))
     .then(docSnap => {
       if(docSnap.exists()) {
-        const data = docSnap.data();
-        App.role = data.role;
-        App.clinicId = data.clinicId || 'NDVSU-001';
+        App.role = docSnap.data().role;
         loadAppData();
         initializeApp();
       } else {
-        showToast('❌', 'User profile not found. Ask admin to create your account.');
+        showToast('❌', 'User profile not found');
       }
     })
-    .catch(err => {
-      showToast('❌', 'Error loading user: ' + err.message);
-      console.error(err);
-    });
+    .catch(err => showToast('❌', 'Error loading user'));
+}
+
+function loadAppData() {
+  getDocs(window.collection(window.db, 'clinics', App.clinicId, 'patients'))
+    .then(snap => { patients = []; snap.forEach(doc => patients.push({id: doc.id, ...doc.data()})); })
+    .catch(err => console.error(err));
+  
+  getDocs(window.collection(window.db, 'clinics', App.clinicId, 'testResults'))
+    .then(snap => { testResults = []; snap.forEach(doc => testResults.push({id: doc.id, ...doc.data()})); })
+    .catch(err => console.error(err));
+
+  getDocs(window.collection(window.db, 'clinics', App.clinicId, 'criteria'))
+    .then(snap => { criteria = []; snap.forEach(doc => criteria.push({id: doc.id, ...doc.data()})); })
+    .catch(err => console.error(err));
 }
 
 function initializeApp() {
@@ -327,54 +263,8 @@ function initializeApp() {
   renderNav();
   renderSidebar();
   showSection('dashboard');
-  setInterval(updateTime, 1000);
-  renderCharts();
 }
 
-function logout() {
-  signOut(window.auth);
-  App.role = null;
-  App.user = null;
-  App.email = null;
-  currentResultPatient = null;
-  document.getElementById('main-app').classList.remove('active');
-  document.getElementById('login-screen').classList.add('active');
-  document.getElementById('loginEmail').value = '';
-  document.getElementById('loginPass').value = '';
-}
-
-// ═════════════════════════════════════════════════════════════
-// DATA LOADING
-// ═════════════════════════════════════════════════════════════
-function loadAppData() {
-  // Load patients
-  getDocs(collection(window.db, 'clinics', App.clinicId, 'patients'))
-    .then(snapshot => {
-      patients = [];
-      snapshot.forEach(doc => patients.push({id: doc.id, ...doc.data()}));
-    })
-    .catch(err => console.error('Patients:', err));
-
-  // Load test results
-  getDocs(collection(window.db, 'clinics', App.clinicId, 'testResults'))
-    .then(snapshot => {
-      testResults = [];
-      snapshot.forEach(doc => testResults.push({id: doc.id, ...doc.data()}));
-    })
-    .catch(err => console.error('Results:', err));
-
-  // Load criteria
-  getDocs(collection(window.db, 'clinics', App.clinicId, 'criteria'))
-    .then(snapshot => {
-      criteria = [];
-      snapshot.forEach(doc => criteria.push({id: doc.id, ...doc.data()}));
-    })
-    .catch(err => console.error('Criteria:', err));
-}
-
-// ═════════════════════════════════════════════════════════════
-// UI FUNCTIONS
-// ═════════════════════════════════════════════════════════════
 function renderNav() {
   const role = ROLES[App.role];
   document.getElementById('navLogo').innerHTML = role.icon;
@@ -385,8 +275,7 @@ function renderNav() {
 }
 
 function renderSidebar() {
-  let html = '<div class="sidebar-section">';
-  html += '<div class="sidebar-label">Main</div>';
+  let html = '<div class="sidebar-section"><div class="sidebar-label">Main</div>';
   
   const menuItems = {
     admin: [
@@ -394,7 +283,7 @@ function renderSidebar() {
       {id: 'patients', icon: '🐾', label: 'Patients'},
       {id: 'results', icon: '📋', label: 'Test Results'},
       {id: 'reports', icon: '📄', label: 'Reports'},
-      {id: 'staff', icon: '👥', label: 'Staff'},
+      {id: 'criteria', icon: '🎯', label: 'Criteria'},
       {id: 'settings', icon: '⚙️', label: 'Settings'}
     ],
     receptionist: [
@@ -405,23 +294,17 @@ function renderSidebar() {
     biochemist: [
       {id: 'dashboard', icon: '📊', label: 'Dashboard'},
       {id: 'results', icon: '📋', label: 'Test Results'},
-      {id: 'reports', icon: '📄', label: 'Reports'},
-      {id: 'criteria', icon: '🎯', label: 'Criteria'}
+      {id: 'reports', icon: '📄', label: 'Reports'}
     ],
     hematologist: [
       {id: 'dashboard', icon: '📊', label: 'Dashboard'},
       {id: 'results', icon: '📋', label: 'Test Results'},
-      {id: 'reports', icon: '📄', label: 'Reports'},
-      {id: 'criteria', icon: '🎯', label: 'Criteria'}
+      {id: 'reports', icon: '📄', label: 'Reports'}
     ]
   };
 
-  const items = menuItems[App.role] || [];
-  items.forEach(item => {
-    html += `<div class="nav-item" onclick="showSection('${item.id}')">
-      <span class="icon">${item.icon}</span>
-      <span>${item.label}</span>
-    </div>`;
+  (menuItems[App.role] || []).forEach(item => {
+    html += `<div class="nav-item" onclick="showSection('${item.id}')"><span class="icon">${item.icon}</span><span>${item.label}</span></div>`;
   });
   html += '</div>';
   document.getElementById('sidebar').innerHTML = html;
@@ -432,83 +315,50 @@ function showSection(sectionId) {
   
   if(sectionId === 'dashboard') {
     html = `<div class="content-section active">
-      <div class="section-header">
-        <h1 class="section-title">Dashboard</h1>
-        <p class="section-subtitle">Real-time clinic overview • Data synced to cloud</p>
-      </div>
-      <div class="setup-warning">
-        <strong>ℹ️ Cloud System Active</strong>
-        <span class="sync-indicator"></span> Connected to Firebase
-      </div>
+      <div class="section-header"><h1 class="section-title">Dashboard</h1><p class="section-subtitle">Lab overview & quick stats</p></div>
       <div class="stats-grid">
-        <div class="stat-card" style="--stat-color:var(--accent)">
-          <div class="stat-label">Total Patients</div>
-          <div class="stat-value">${patients.length}</div>
-          <div class="stat-icon">🐾</div>
-        </div>
-        <div class="stat-card" style="--stat-color:var(--bio-color)">
-          <div class="stat-label">Test Results</div>
-          <div class="stat-value">${testResults.length}</div>
-          <div class="stat-icon">📋</div>
-        </div>
-        <div class="stat-card" style="--stat-color:var(--hemo-color)">
-          <div class="stat-label">Criteria</div>
-          <div class="stat-value">${criteria.length}</div>
-          <div class="stat-icon">🎯</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Quick Stats</div>
-        <p style="color:var(--muted);margin:10px 0">All data is stored securely in the cloud and synced across all clinic computers automatically.</p>
+        <div class="stat-card" style="--stat-color:var(--accent)"><div class="stat-label">Patients</div><div class="stat-value">${patients.length}</div></div>
+        <div class="stat-card" style="--stat-color:var(--bio-color)"><div class="stat-label">Tests Pending</div><div class="stat-value">${testResults.filter(r => r.status === 'pending').length}</div></div>
+        <div class="stat-card" style="--stat-color:var(--accent3)"><div class="stat-label">Tests Completed</div><div class="stat-value">${testResults.filter(r => r.status === 'completed').length}</div></div>
+        <div class="stat-card" style="--stat-color:var(--hemo-color)"><div class="stat-label">Criteria</div><div class="stat-value">${criteria.length}</div></div>
       </div>
     </div>`;
-  } else if(sectionId === 'patients') {
+  } 
+  else if(sectionId === 'patients') {
     html = renderPatientsSection();
-  } else if(sectionId === 'results') {
+  }
+  else if(sectionId === 'results') {
     html = renderResultsSection();
-  } else if(sectionId === 'reports') {
+  }
+  else if(sectionId === 'reports') {
     html = renderReportsSection();
-  } else if(sectionId === 'criteria') {
+  }
+  else if(sectionId === 'criteria') {
     html = renderCriteriaSection();
-  } else if(sectionId === 'settings') {
+  }
+  else if(sectionId === 'settings') {
     html = renderSettings();
-  } else if(sectionId === 'staff') {
-    html = renderStaffSection();
   }
 
   document.getElementById('mainContent').innerHTML = html;
 }
 
+// PATIENTS
 function renderPatientsSection() {
   let html = `<div class="content-section active">
-    <div class="section-header">
-      <h1 class="section-title">Patients</h1>
-      <p class="section-subtitle">Manage patient records</p>
-    </div>
+    <div class="section-header"><h1 class="section-title">Patients</h1><p class="section-subtitle">Manage patient records</p></div>
+    ${App.role === 'receptionist' || App.role === 'admin' ? `
     <div class="card">
       <div class="card-title">Add New Patient</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div class="form-group">
-          <label class="form-label">Patient Name</label>
-          <input type="text" id="patientName" class="form-input" placeholder="Pet name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Species</label>
-          <select id="patientSpecies" class="form-input">
-            <option>Canine</option><option>Feline</option><option>Avian</option><option>Reptile</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Owner</label>
-          <input type="text" id="patientOwner" class="form-input" placeholder="Owner name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Contact</label>
-          <input type="tel" id="patientContact" class="form-input" placeholder="Phone number">
-        </div>
+        <div class="form-group"><label class="form-label">Patient Name</label><input type="text" id="patientName" class="form-input" placeholder="Pet name"></div>
+        <div class="form-group"><label class="form-label">Species</label><select id="patientSpecies" class="form-select"><option>Canine</option><option>Feline</option><option>Avian</option><option>Reptile</option><option>Equine</option></select></div>
+        <div class="form-group"><label class="form-label">Owner Name</label><input type="text" id="patientOwner" class="form-input" placeholder="Owner name"></div>
+        <div class="form-group"><label class="form-label">Contact</label><input type="tel" id="patientContact" class="form-input" placeholder="Phone"></div>
       </div>
-      <button class="btn btn-accent" onclick="addPatient()">Add Patient to Cloud</button>
+      <button class="btn btn-accent" onclick="addPatient()">Add Patient</button>
     </div>
+    ` : ''}
     <div class="card">
       <div class="card-title">Patient Records (${patients.length})</div>
       <div id="patientsList"></div>
@@ -524,32 +374,21 @@ function addPatient() {
   const species = document.getElementById('patientSpecies').value;
   const owner = document.getElementById('patientOwner').value.trim();
   const contact = document.getElementById('patientContact').value.trim();
-
-  if(!name || !owner) {
-    showToast('⚠️', 'Enter patient and owner names');
-    return;
-  }
-
-  const patientData = {
-    name, species, owner, contact,
-    createdAt: new Date(),
-    clinicId: App.clinicId,
-    createdBy: App.user
-  };
-
-  addDoc(collection(window.db, 'clinics', App.clinicId, 'patients'), patientData)
+  
+  if(!name || !owner) { showToast('⚠️', 'Enter patient and owner'); return; }
+  
+  window.addDoc(window.collection(window.db, 'clinics', App.clinicId, 'patients'), {
+    name, species, owner, contact, createdAt: new Date(), createdBy: App.user
+  })
     .then(docRef => {
-      patients.push({id: docRef.id, ...patientData});
+      patients.push({id: docRef.id, name, species, owner, contact, createdAt: new Date()});
       document.getElementById('patientName').value = '';
       document.getElementById('patientOwner').value = '';
       document.getElementById('patientContact').value = '';
-      showToast('✅', 'Patient added to cloud');
+      showToast('✅', 'Patient added');
       renderPatientsList();
     })
-    .catch(err => {
-      showToast('❌', 'Error adding patient: ' + err.message);
-      console.error(err);
-    });
+    .catch(err => showToast('❌', 'Error adding patient'));
 }
 
 function renderPatientsList() {
@@ -561,138 +400,265 @@ function renderPatientsList() {
     return;
   }
 
-  let html = '<div style="display:grid;gap:10px">';
+  let html = '<table><thead><tr><th>Patient</th><th>Species</th><th>Owner</th><th>Contact</th><th>Actions</th></tr></thead><tbody>';
   patients.forEach(p => {
-    html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <div style="font-weight:600">${p.name}</div>
-        <div style="font-size:12px;color:var(--muted)">${p.species} • Owner: ${p.owner}</div>
-      </div>
-      <button class="btn btn-sm btn-ghost" onclick="deletePatient('${p.id}')">Delete</button>
-    </div>`;
+    html += `<tr><td>${p.name}</td><td>${p.species}</td><td>${p.owner}</td><td>${p.contact}</td><td>
+      <button class="btn btn-sm btn-ghost" onclick="viewPatient('${p.id}')">View</button>
+      ${(App.role === 'admin' || App.role === 'receptionist') ? `<button class="btn btn-sm btn-ghost" onclick="deletePatient('${p.id}')">Delete</button>` : ''}
+    </td></tr>`;
   });
-  html += '</div>';
+  html += '</tbody></table>';
   list.innerHTML = html;
 }
 
+function viewPatient(patientId) {
+  const patient = patients.find(p => p.id === patientId);
+  if(patient) showToast('ℹ️', `Patient: ${patient.name}`);
+}
+
 function deletePatient(patientId) {
-  if(confirm('Delete this patient record?')) {
-    deleteDoc(doc(window.db, 'clinics', App.clinicId, 'patients', patientId))
+  if(confirm('Delete this patient?')) {
+    window.deleteDoc(window.doc(window.db, 'clinics', App.clinicId, 'patients', patientId))
       .then(() => {
         patients = patients.filter(p => p.id !== patientId);
         showToast('✅', 'Patient deleted');
         renderPatientsList();
       })
-      .catch(err => showToast('❌', 'Error deleting: ' + err.message));
+      .catch(err => showToast('❌', 'Error deleting'));
   }
 }
 
+// TEST RESULTS
 function renderResultsSection() {
-  return `<div class="content-section active">
-    <div class="section-header">
-      <h1 class="section-title">Test Results</h1>
-      <p class="section-subtitle">View and manage test results</p>
-    </div>
+  let html = `<div class="content-section active">
+    <div class="section-header"><h1 class="section-title">Test Results</h1><p class="section-subtitle">Manage lab test results</p></div>
+    ${(App.role === 'biochemist' || App.role === 'hematologist' || App.role === 'admin') ? `
     <div class="card">
-      <div class="card-title">Results: ${testResults.length}</div>
-      <div style="color:var(--muted);padding:20px 0">Test results management coming soon...</div>
-    </div>
-  </div>`;
-}
-
-function renderReportsSection() {
-  return `<div class="content-section active">
-    <div class="section-header">
-      <h1 class="section-title">Reports</h1>
-      <p class="section-subtitle">Generate and view reports</p>
-    </div>
-    <div class="card">
-      <div class="card-title">Reports</div>
-      <div style="color:var(--muted);padding:20px 0">Reports module coming soon...</div>
-    </div>
-  </div>`;
-}
-
-function renderCriteriaSection() {
-  return `<div class="content-section active">
-    <div class="section-header">
-      <h1 class="section-title">Test Criteria</h1>
-      <p class="section-subtitle">Manage diagnostic criteria</p>
-    </div>
-    <div class="card">
-      <div class="card-title">Criteria: ${criteria.length}</div>
-      <div style="color:var(--muted);padding:20px 0">Criteria management coming soon...</div>
-    </div>
-  </div>`;
-}
-
-function renderStaffSection() {
-  return `<div class="content-section active">
-    <div class="section-header">
-      <h1 class="section-title">Staff Management</h1>
-      <p class="section-subtitle">Manage clinic staff and roles</p>
-    </div>
-    <div class="card">
-      <div class="card-title">Add Staff Member</div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" id="staffEmail" class="form-input" placeholder="staff@clinic.com">
+      <div class="card-title">Add Test Result</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group"><label class="form-label">Patient</label><select id="resultPatient" class="form-select">${patients.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}</select></div>
+        <div class="form-group"><label class="form-label">Test Type</label><input type="text" id="resultTest" class="form-input" placeholder="e.g., Blood Test"></div>
+        <div class="form-group"><label class="form-label">Result Value</label><input type="text" id="resultValue" class="form-input" placeholder="e.g., 7.5"></div>
+        <div class="form-group"><label class="form-label">Reference Range</label><input type="text" id="resultRef" class="form-input" placeholder="e.g., 5-10"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Role</label>
-        <select id="staffRole" class="form-input">
-          <option value="receptionist">Receptionist</option>
-          <option value="biochemist">Biochemist</option>
-          <option value="hematologist">Hematologist</option>
-        </select>
-      </div>
-      <button class="btn btn-accent" onclick="inviteStaff()">Send Invite</button>
+      <button class="btn btn-accent" onclick="addTestResult()">Add Result</button>
+    </div>
+    ` : ''}
+    <div class="card">
+      <div class="card-title">Test Results (${testResults.length})</div>
+      <div id="resultsList"></div>
     </div>
   </div>`;
+  
+  setTimeout(() => renderResultsList(), 100);
+  return html;
 }
 
-function inviteStaff() {
-  const email = document.getElementById('staffEmail').value.trim();
-  const role = document.getElementById('staffRole').value;
+function addTestResult() {
+  const patientId = document.getElementById('resultPatient').value;
+  const testType = document.getElementById('resultTest').value.trim();
+  const resultValue = document.getElementById('resultValue').value.trim();
+  const refRange = document.getElementById('resultRef').value.trim();
+  
+  if(!patientId || !testType || !resultValue) { showToast('⚠️', 'Fill all fields'); return; }
+  
+  window.addDoc(window.collection(window.db, 'clinics', App.clinicId, 'testResults'), {
+    patientId, testType, resultValue, refRange, status: 'pending', createdAt: new Date(), createdBy: App.user
+  })
+    .then(docRef => {
+      testResults.push({id: docRef.id, patientId, testType, resultValue, refRange, status: 'pending'});
+      document.getElementById('resultTest').value = '';
+      document.getElementById('resultValue').value = '';
+      document.getElementById('resultRef').value = '';
+      showToast('✅', 'Test result added');
+      renderResultsList();
+    })
+    .catch(err => showToast('❌', 'Error adding result'));
+}
 
-  if(!email) {
-    showToast('⚠️', 'Enter email');
+function renderResultsList() {
+  const list = document.getElementById('resultsList');
+  if(!list) return;
+  
+  if(testResults.length === 0) {
+    list.innerHTML = '<div style="color:var(--muted);padding:20px 0">No test results yet</div>';
     return;
   }
 
-  showToast('✅', `Invite sent to ${email}`);
-  document.getElementById('staffEmail').value = '';
+  let html = '<table><thead><tr><th>Patient</th><th>Test</th><th>Value</th><th>Reference</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+  testResults.forEach(r => {
+    const patient = patients.find(p => p.id === r.patientId);
+    const statusColor = r.status === 'pending' ? 'badge-pending' : r.status === 'completed' ? 'badge-completed' : 'badge-verified';
+    html += `<tr><td>${patient?.name || 'Unknown'}</td><td>${r.testType}</td><td>${r.resultValue}</td><td>${r.refRange}</td><td><span class="badge ${statusColor}">${r.status}</span></td><td>
+      ${(App.role === 'biochemist' || App.role === 'hematologist' || App.role === 'admin') && r.status === 'pending' ? `<button class="btn btn-sm btn-ghost" onclick="completeTest('${r.id}')">Complete</button>` : ''}
+      ${(App.role === 'admin') ? `<button class="btn btn-sm btn-ghost" onclick="deleteResult('${r.id}')">Delete</button>` : ''}
+    </td></tr>`;
+  });
+  html += '</tbody></table>';
+  list.innerHTML = html;
 }
 
+function completeTest(resultId) {
+  const result = testResults.find(r => r.id === resultId);
+  if(result) {
+    window.setDoc(window.doc(window.db, 'clinics', App.clinicId, 'testResults', resultId), {...result, status: 'completed'});
+    testResults = testResults.map(r => r.id === resultId ? {...r, status: 'completed'} : r);
+    showToast('✅', 'Test marked completed');
+    renderResultsList();
+  }
+}
+
+function deleteResult(resultId) {
+  if(confirm('Delete this result?')) {
+    window.deleteDoc(window.doc(window.db, 'clinics', App.clinicId, 'testResults', resultId))
+      .then(() => {
+        testResults = testResults.filter(r => r.id !== resultId);
+        showToast('✅', 'Result deleted');
+        renderResultsList();
+      });
+  }
+}
+
+// REPORTS
+function renderReportsSection() {
+  let html = `<div class="content-section active">
+    <div class="section-header"><h1 class="section-title">Reports</h1><p class="section-subtitle">View and generate reports</p></div>
+    <div class="card">
+      <div class="card-title">Patient Reports</div>
+      <div id="reportsList"></div>
+    </div>
+  </div>`;
+  
+  setTimeout(() => renderReportsList(), 100);
+  return html;
+}
+
+function renderReportsList() {
+  const list = document.getElementById('reportsList');
+  if(!list) return;
+  
+  if(patients.length === 0) {
+    list.innerHTML = '<div style="color:var(--muted)">No patients to report</div>';
+    return;
+  }
+
+  let html = '<table><thead><tr><th>Patient</th><th>Species</th><th>Tests</th><th>Actions</th></tr></thead><tbody>';
+  patients.forEach(p => {
+    const patientTests = testResults.filter(t => t.patientId === p.id);
+    html += `<tr><td><strong>${p.name}</strong></td><td>${p.species}</td><td>${patientTests.length} test(s)</td><td>
+      <button class="btn btn-sm btn-ghost" onclick="generateReport('${p.id}')">Generate</button>
+    </td></tr>`;
+  });
+  html += '</tbody></table>';
+  list.innerHTML = html;
+}
+
+function generateReport(patientId) {
+  const patient = patients.find(p => p.id === patientId);
+  const patientTests = testResults.filter(t => t.patientId === patientId);
+  
+  let report = `PATIENT REPORT\n`;
+  report += `Patient: ${patient.name}\n`;
+  report += `Species: ${patient.species}\n`;
+  report += `Owner: ${patient.owner}\n`;
+  report += `Contact: ${patient.contact}\n`;
+  report += `Generated: ${new Date().toLocaleDateString()}\n\n`;
+  report += `TEST RESULTS:\n`;
+  patientTests.forEach(t => {
+    report += `- ${t.testType}: ${t.resultValue} (Ref: ${t.refRange}) [${t.status}]\n`;
+  });
+  
+  showToast('📄', 'Report: ' + patient.name);
+}
+
+// CRITERIA
+function renderCriteriaSection() {
+  let html = `<div class="content-section active">
+    <div class="section-header"><h1 class="section-title">Test Criteria</h1><p class="section-subtitle">Manage diagnostic criteria</p></div>
+    ${App.role === 'admin' ? `
+    <div class="card">
+      <div class="card-title">Add Criteria</div>
+      <div class="form-group"><label class="form-label">Criteria Name</label><input type="text" id="criteriaName" class="form-input" placeholder="e.g., Anemia Test"></div>
+      <div class="form-group"><label class="form-label">Test Type</label><input type="text" id="criteriaTest" class="form-input" placeholder="e.g., Blood Test"></div>
+      <div class="form-group"><label class="form-label">Range</label><input type="text" id="criteriaRange" class="form-input" placeholder="e.g., 5-10"></div>
+      <button class="btn btn-accent" onclick="addCriteria()">Add Criteria</button>
+    </div>
+    ` : ''}
+    <div class="card">
+      <div class="card-title">Criteria (${criteria.length})</div>
+      <div id="criteriaList"></div>
+    </div>
+  </div>`;
+  
+  setTimeout(() => renderCriteriaList(), 100);
+  return html;
+}
+
+function addCriteria() {
+  const name = document.getElementById('criteriaName').value.trim();
+  const testType = document.getElementById('criteriaTest').value.trim();
+  const range = document.getElementById('criteriaRange').value.trim();
+  
+  if(!name || !testType) { showToast('⚠️', 'Fill all fields'); return; }
+  
+  window.addDoc(window.collection(window.db, 'clinics', App.clinicId, 'criteria'), {
+    name, testType, range, createdAt: new Date()
+  })
+    .then(docRef => {
+      criteria.push({id: docRef.id, name, testType, range});
+      document.getElementById('criteriaName').value = '';
+      document.getElementById('criteriaTest').value = '';
+      document.getElementById('criteriaRange').value = '';
+      showToast('✅', 'Criteria added');
+      renderCriteriaList();
+    })
+    .catch(err => showToast('❌', 'Error adding criteria'));
+}
+
+function renderCriteriaList() {
+  const list = document.getElementById('criteriaList');
+  if(!list) return;
+  
+  if(criteria.length === 0) {
+    list.innerHTML = '<div style="color:var(--muted)">No criteria yet</div>';
+    return;
+  }
+
+  let html = '<table><thead><tr><th>Name</th><th>Test Type</th><th>Range</th>${App.role === 'admin' ? '<th>Action</th>' : ''}</tr></thead><tbody>';
+  criteria.forEach(c => {
+    html += `<tr><td>${c.name}</td><td>${c.testType}</td><td>${c.range}</td>${App.role === 'admin' ? `<td><button class="btn btn-sm btn-ghost" onclick="deleteCriteria('${c.id}')">Delete</button></td>` : ''}</tr>`;
+  });
+  html += '</tbody></table>';
+  list.innerHTML = html;
+}
+
+function deleteCriteria(criteriaId) {
+  if(confirm('Delete this criteria?')) {
+    window.deleteDoc(window.doc(window.db, 'clinics', App.clinicId, 'criteria', criteriaId))
+      .then(() => {
+        criteria = criteria.filter(c => c.id !== criteriaId);
+        showToast('✅', 'Criteria deleted');
+        renderCriteriaList();
+      });
+  }
+}
+
+// SETTINGS
 function renderSettings() {
   return `<div class="content-section active">
-    <div class="section-header">
-      <h1 class="section-title">System Settings</h1>
+    <div class="section-header"><h1 class="section-title">Settings</h1></div>
+    <div class="card"><div class="card-title">Clinic Info</div>
+      <div class="form-group"><label class="form-label">Lab Name</label><input type="text" class="form-input" value="NDVSU Laboratory"></div>
+      <div class="form-group"><label class="form-label">Address</label><textarea class="form-input" rows="2">NDVSU Campus, Jabalpur</textarea></div>
+      <button class="btn btn-accent" onclick="showToast('✅','Settings saved')">Save</button>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-      <div class="card"><div class="card-title">Lab Information</div>
-        <div class="form-group"><label class="form-label">Lab Name</label><input type="text" class="form-input" value="NDVSU Laboratory"></div>
-        <div class="form-group"><label class="form-label">Address</label><textarea class="form-input" rows="2">NDVSU Campus, Jabalpur, MP – 482001</textarea></div>
-        <button class="btn btn-accent" onclick="showToast('✅','Settings saved')">Save Changes</button>
-      </div>
-      <div class="card"><div class="card-title">Cloud Sync</div>
-        <div style="color:var(--muted);font-size:13px;line-height:1.6">
-          <p><span class="sync-indicator"></span> Connected to Firebase</p>
-          <p style="margin-top:10px">All data is automatically synced across all clinic computers.</p>
-          <button class="btn btn-accent" style="margin-top:10px" onclick="showToast('✅','Data synced')">Force Sync Now</button>
-        </div>
-      </div>
-    </div></div>`;
+  </div>`;
 }
 
-function renderCharts() {
-  // Placeholder for chart rendering
-}
-
-function updateTime() {
-  const now = new Date();
-  const el = document.getElementById('navTime');
-  if(el) el.textContent = now.toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+// UTILITIES
+function logout() {
+  signOut(window.auth);
+  location.reload();
 }
 
 function showToast(icon, msg) {
@@ -703,7 +669,6 @@ function showToast(icon, msg) {
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('loginPass').addEventListener('keydown', e => {
     if(e.key === 'Enter') doLogin();
